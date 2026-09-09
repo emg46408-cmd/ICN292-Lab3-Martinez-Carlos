@@ -1,0 +1,182 @@
+{
+  "name": "ICN292-LAB3-Resumen",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9b932c77-c82b-4737-83a5-fb27c3dc6130",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50",
+          "mode": "list",
+          "cachedResultName": "ICN292-Lab3-Registro",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "3e2cb7f2-46f7-4995-9a74-283370e2e8c0",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "quzlkHaFK22GwLk9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "id_solicitud"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "['ruta ']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "43604fff-2691-4b92-9548-1aab766199a9",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50",
+          "mode": "list",
+          "cachedResultName": "ICN292-Lab3-Registro",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2052360710,
+          "mode": "list",
+          "cachedResultName": "Hoja 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OkdbP3ztkseCGGM3Tsh72JQgPBgZqtTt5WA-i7dVm50/edit#gid=2052360710"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "solicitud ": "={{ $json.count_id_solicitud }}"
+          },
+          "matchingColumns": [
+            "solicitud "
+          ],
+          "schema": [
+            {
+              "id": "solicitud ",
+              "displayName": "solicitud ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        0
+      ],
+      "id": "5d0cfef9-1092-4e05-b946-32a631fc372c",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "quzlkHaFK22GwLk9",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c1bd827e-7bf8-428a-986e-df54613755a4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e3bfcddc18524b89ac1e5a12e1d5f20effcea5ad1b7b4b1a0663985226263c8a"
+  },
+  "nodeGroups": [],
+  "id": "LBJZVgwYmwN5FtjR",
+  "tags": []
+}
